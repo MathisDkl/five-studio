@@ -11,6 +11,7 @@ interface Film {
   duration: string;
   type: 'ai' | 'human';
   genre: string;
+  videoUrl?: string;
 }
 
 interface CategoryViewProps {
@@ -38,7 +39,7 @@ const CategoryView: React.FC<CategoryViewProps> = ({ title, films, isSubscribed 
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {films.map((film) => (
-            <FilmCard key={film.id} {...film} isSubscribed={isSubscribed} />
+            <FilmCard key={film.id} {...film} isSubscribed={isSubscribed} videoUrl={film.videoUrl} />
           ))}
         </div>
       </div>

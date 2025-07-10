@@ -11,12 +11,18 @@ interface FilmCardProps {
   genre: string;
   isSubscribed?: boolean;
   onPlay?: () => void;
+  videoUrl?: string;
 }
 
-const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duration, type, genre, isSubscribed = false, onPlay }) => {
+const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duration, type, genre, isSubscribed = false, onPlay, videoUrl }) => {
   const handlePlayClick = () => {
     if (onPlay) {
       onPlay();
+    } else if (videoUrl && isSubscribed) {
+      // Open YouTube video in new tab
+      window.open(videoUrl, '_blank');
+    } else if (videoUrl && !isSubscribed) {
+      alert(`Subscribe to Five Studio Premium for just €2.50/month to watch "${title}" and all other films!`);
     } else if (!isSubscribed) {
       alert(`Subscribe to Five Studio Premium for just €2.50/month to watch "${title}" and all other films!`);
     } else {

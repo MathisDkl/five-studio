@@ -7,18 +7,20 @@ export interface Film {
   duration: string;
   type: 'ai' | 'human';
   genre: string;
+  videoUrl?: string;
 }
 
 export const aiFilms: Film[] = [
   {
     id: 'ai-0',
-    title: 'Lina',
+    title: 'LISA',
     image: '/afficheLinatitre.png',
     year: '2024',
     rating: 9.4,
     duration: '134 min',
     type: 'ai',
-    genre: 'Drama'
+    genre: 'Drama',
+    videoUrl: 'https://youtu.be/gPK90lm4JAY'
   },
   {
     id: 'ai-1',
