@@ -8,9 +8,10 @@ interface HeaderProps {
   activeCategory: string;
   isSubscribed: boolean;
   onSubscriptionChange: (subscribed: boolean) => void;
+  onNavigate: (page: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory, isSubscribed, onSubscriptionChange }) => {
+const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory, isSubscribed, onSubscriptionChange, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
@@ -26,6 +27,11 @@ const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory, isSub
 
   const handleSubscribe = () => {
     onSubscriptionChange(true);
+  };
+
+  const handleSignOut = () => {
+    onSubscriptionChange(false);
+    alert('You have been signed out successfully!');
   };
 
   return (
@@ -132,6 +138,8 @@ const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory, isSub
         onClose={() => setIsUserModalOpen(false)}
         isSubscribed={isSubscribed}
         onOpenSubscription={() => setIsSubscriptionModalOpen(true)}
+        onNavigate={onNavigate}
+        onSignOut={handleSignOut}
       />
       
       <SubscriptionModal 

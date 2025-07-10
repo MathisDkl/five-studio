@@ -7,9 +7,10 @@ import CategoryView from './components/CategoryView';
 import Footer from './components/Footer';
 import { AIFilmsPage, HumanFilmsPage, ShortFilmsPage, CollectionsPage } from './components/ContentPages';
 import { HelpCenterPage, ContactUsPage, PrivacyPolicyPage, TermsOfServicePage } from './components/SupportPages';
+import { ProfileSettingsPage, BillingPaymentsPage, AccountSettingsPage } from './components/UserPages';
 import { aiFilms, humanFilms, shortFilms } from './data/films';
 
-type ViewType = 'home' | 'ai' | 'human' | 'shorts' | 'ai-films' | 'human-films' | 'short-films' | 'collections' | 'help-center' | 'contact-us' | 'privacy-policy' | 'terms-of-service';
+type ViewType = 'home' | 'ai' | 'human' | 'shorts' | 'ai-films' | 'human-films' | 'short-films' | 'collections' | 'help-center' | 'contact-us' | 'privacy-policy' | 'terms-of-service' | 'profile-settings' | 'billing-payments' | 'account-settings';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -72,6 +73,12 @@ function App() {
         return <PrivacyPolicyPage title="Privacy Policy" onBack={handleBackToHome} />;
       case 'terms-of-service':
         return <TermsOfServicePage title="Terms of Service" onBack={handleBackToHome} />;
+      case 'profile-settings':
+        return <ProfileSettingsPage title="Profile Settings" onBack={handleBackToHome} />;
+      case 'billing-payments':
+        return <BillingPaymentsPage title="Billing & Payments" onBack={handleBackToHome} />;
+      case 'account-settings':
+        return <AccountSettingsPage title="Account Settings" onBack={handleBackToHome} />;
       default:
         return (
           <main>
@@ -112,6 +119,7 @@ function App() {
         activeCategory={currentView} 
         isSubscribed={isSubscribed}
         onSubscriptionChange={setIsSubscribed}
+        onNavigate={handleNavigate}
       />
       {renderContent()}
       {currentView === 'home' && <Footer onNavigate={handleNavigate} />}

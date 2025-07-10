@@ -6,9 +6,21 @@ interface UserModalProps {
   onClose: () => void;
   isSubscribed: boolean;
   onOpenSubscription: () => void;
+  onNavigate: (page: string) => void;
+  onSignOut: () => void;
 }
 
-const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, isSubscribed, onOpenSubscription }) => {
+const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, isSubscribed, onOpenSubscription, onNavigate, onSignOut }) => {
+  const handleNavigate = (page: string) => {
+    onClose();
+    onNavigate(page);
+  };
+
+  const handleSignOut = () => {
+    onClose();
+    onSignOut();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -40,7 +52,10 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, isSubscribed, on
         )}
 
         <div className="space-y-2">
-          <button className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-white">
+          <button 
+            onClick={() => handleNavigate('profile-settings')}
+            className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-white"
+          >
             <User className="w-5 h-5" />
             <span>Profile Settings</span>
           </button>
@@ -58,19 +73,28 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, isSubscribed, on
             </button>
           )}
           
-          <button className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-white">
+          <button 
+            onClick={() => handleNavigate('billing-payments')}
+            className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-white"
+          >
             <CreditCard className="w-5 h-5" />
             <span>Billing & Payments</span>
           </button>
           
-          <button className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-white">
+          <button 
+            onClick={() => handleNavigate('account-settings')}
+            className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-white"
+          >
             <Settings className="w-5 h-5" />
             <span>Account Settings</span>
           </button>
           
           <hr className="border-gray-700 my-2" />
           
-          <button className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-red-400">
+          <button 
+            onClick={handleSignOut}
+            className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition-colors text-red-400"
+          >
             <LogOut className="w-5 h-5" />
             <span>Sign Out</span>
           </button>
