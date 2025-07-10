@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, Star, Clock } from 'lucide-react';
+import VideoPlayer from './VideoPlayer';
 
 interface FilmCardProps {
   title: string;
@@ -15,12 +16,14 @@ interface FilmCardProps {
 }
 
 const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duration, type, genre, isSubscribed = false, onPlay, videoUrl }) => {
+  const [isVideoPlayerOpen, setIsVideoPlayerOpen] = React.useState(false);
+
   const handlePlayClick = () => {
     if (onPlay) {
       onPlay();
     } else if (videoUrl && isSubscribed) {
-      // Open YouTube video in new tab
-      window.open(videoUrl, '_blank');
+      // Open video player modal
+      setIsVideoPlayerOpen(true);
     } else if (videoUrl && !isSubscribed) {
       alert(`Subscribe to Five Studio Premium for just €2.50/month to watch "${title}" and all other films!`);
     } else if (!isSubscribed) {
@@ -31,7 +34,8 @@ const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duratio
   };
 
   return (
-    <div className="group relative bg-gray-900 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer">
+    <>
+      <div className="group relative bg-gray-900 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer">
       <div className="aspect-[16/9] relative overflow-hidden">
         <img 
           src={image} 
@@ -83,6 +87,17 @@ const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duratio
         <div className="text-sm text-gray-300">{genre}</div>
       </div>
     </div>
+      
+      {/* Video Player Modal */}
+      {videoUrl && (
+        <VideoPlayer
+          isOpen={isVideoPlayerOpen}
+          onClose={() => setIsVideoPlayerOpen(false)}
+          videoUrl={videoUrl}
+          title={title}
+        />
+      )}
+    </>
   );
 };
 
