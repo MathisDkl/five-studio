@@ -16,10 +16,11 @@ interface Film {
 interface CategoryViewProps {
   title: string;
   films: Film[];
+  isSubscribed?: boolean;
   onBack: () => void;
 }
 
-const CategoryView: React.FC<CategoryViewProps> = ({ title, films, onBack }) => {
+const CategoryView: React.FC<CategoryViewProps> = ({ title, films, isSubscribed = false, onBack }) => {
   return (
     <div className="min-h-screen bg-black pt-20">
       <div className="container mx-auto px-4 lg:px-6">
@@ -37,7 +38,7 @@ const CategoryView: React.FC<CategoryViewProps> = ({ title, films, onBack }) => 
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {films.map((film) => (
-            <FilmCard key={film.id} {...film} />
+            <FilmCard key={film.id} {...film} isSubscribed={isSubscribed} />
           ))}
         </div>
       </div>

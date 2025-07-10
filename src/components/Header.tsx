@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import { Search, Menu, X, User } from 'lucide-react';
+import UserModal from './UserModal';
+import SubscriptionModal from './SubscriptionModal';
 
 interface HeaderProps {
   onCategoryChange: (category: 'home' | 'ai' | 'human' | 'shorts') => void;
   activeCategory: string;
+  isSubscribed: boolean;
+  onSubscriptionChange: (subscribed: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory }) => {
+const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory, isSubscribed, onSubscriptionChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
 
   const handleNavClick = (category: 'home' | 'ai' | 'human' | 'shorts') => {
     onCategoryChange(category);
     setIsMenuOpen(false);
   };
 
+  const handleUserClick = () => {
+    setIsUserModalOpen(true);
+  };
+
+  const handleSubscribe = () => {
+    onSubscriptionChange(true);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-gray-800">
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-gray-800">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -61,7 +76,10 @@ const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory }) => 
             <button className="text-white hover:text-purple-400 transition-colors">
               <Search className="w-5 h-5" />
             </button>
-            <button className="text-white hover:text-purple-400 transition-colors">
+            <button 
+              onClick={handleUserClick}
+              className="text-white hover:text-purple-400 transition-colors"
+            >
               <User className="w-5 h-5" />
             </button>
             
@@ -107,7 +125,21 @@ const Header: React.FC<HeaderProps> = ({ onCategoryChange, activeCategory }) => 
           </div>
         )}
       </div>
-    </header>
+      </header>
+      
+      <UserModal 
+        isOpen={isUserModalOpen}
+        onClose={() => setIsUserModalOpen(false)}
+        isSubscribed={isSubscribed}
+        onOpenSubscription={() => setIsSubscriptionModalOpen(true)}
+      />
+      
+      <SubscriptionModal 
+        isOpen={isSubscriptionModalOpen}
+        onClose={() => setIsSubscriptionModalOpen(false)}
+        onSubscribe={handleSubscribe}
+      />
+    </>
   );
 };
 

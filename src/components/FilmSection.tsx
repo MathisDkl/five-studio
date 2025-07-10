@@ -17,10 +17,11 @@ interface FilmSectionProps {
   title: string;
   films: Film[];
   type: 'ai' | 'human';
+  isSubscribed?: boolean;
   onViewAll?: () => void;
 }
 
-const FilmSection: React.FC<FilmSectionProps> = ({ title, films, type, onViewAll }) => {
+const FilmSection: React.FC<FilmSectionProps> = ({ title, films, type, isSubscribed = false, onViewAll }) => {
   const handleViewAll = () => {
     if (onViewAll) {
       onViewAll();
@@ -45,7 +46,7 @@ const FilmSection: React.FC<FilmSectionProps> = ({ title, films, type, onViewAll
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {films.map((film) => (
-            <FilmCard key={film.id} {...film} />
+            <FilmCard key={film.id} {...film} isSubscribed={isSubscribed} />
           ))}
         </div>
       </div>

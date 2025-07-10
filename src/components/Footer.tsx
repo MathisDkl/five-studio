@@ -1,7 +1,11 @@
 import React from 'react';
 import { Play, Instagram, Twitter, Youtube, Facebook } from 'lucide-react';
 
-const Footer = () => {
+interface FooterProps {
+  onNavigate: (page: string) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-black border-t border-gray-800 py-12">
       <div className="container mx-auto px-4 lg:px-6">
@@ -38,20 +42,20 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold mb-4">Content</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">AI Films</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Human Films</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Short Films</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Collections</a></li>
+              <li><button onClick={() => onNavigate('ai-films')} className="hover:text-white transition-colors">AI Films</button></li>
+              <li><button onClick={() => onNavigate('human-films')} className="hover:text-white transition-colors">Human Films</button></li>
+              <li><button onClick={() => onNavigate('short-films')} className="hover:text-white transition-colors">Short Films</button></li>
+              <li><button onClick={() => onNavigate('collections')} className="hover:text-white transition-colors">Collections</button></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-white font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><button onClick={() => onNavigate('help-center')} className="hover:text-white transition-colors">Help Center</button></li>
+              <li><button onClick={() => onNavigate('contact-us')} className="hover:text-white transition-colors">Contact Us</button></li>
+              <li><button onClick={() => onNavigate('privacy-policy')} className="hover:text-white transition-colors">Privacy Policy</button></li>
+              <li><button onClick={() => onNavigate('terms-of-service')} className="hover:text-white transition-colors">Terms of Service</button></li>
             </ul>
           </div>
         </div>

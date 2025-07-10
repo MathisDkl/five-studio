@@ -9,13 +9,16 @@ interface FilmCardProps {
   duration: string;
   type: 'ai' | 'human';
   genre: string;
+  isSubscribed?: boolean;
   onPlay?: () => void;
 }
 
-const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duration, type, genre, onPlay }) => {
+const FilmCard: React.FC<FilmCardProps> = ({ title, image, year, rating, duration, type, genre, isSubscribed = false, onPlay }) => {
   const handlePlayClick = () => {
     if (onPlay) {
       onPlay();
+    } else if (!isSubscribed) {
+      alert(`Subscribe to Five Studio Premium for just €2.50/month to watch "${title}" and all other films!`);
     } else {
       alert(`Playing "${title}" - This would open the video player in a real application.`);
     }
